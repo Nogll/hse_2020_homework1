@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">О себе</string>
+    <string name="name">Илья Белокопытов</string>
+    <string name="my_class">9 класс</string>
+    <string name="github">GITHUB</string>
+    <string name="project_head">Идея проекта</string>
+    <string name="project_text">текст</string>
+    <string name="skills">Навыки</string>
+</resources>

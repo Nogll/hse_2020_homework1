@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">About me</string>
+    <string name="name">Ilya Belokopytov</string>
+    <string name="my_class">9 class</string>
+    <string name="github">GITHUB</string>
+    <string name="project_head">123</string>
+    <string name="project_text">123</string>
+    <string name="skills">Skills</string>
+    <string name="sort_image" translatable="false">sort image</string>
+</resources>
