@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 class SortAdaper(items : List<String>, private val sortObject: sort) : RecyclerView.Adapter<SortAdaper.ViewHolder>() {
 
     private var boxes: ArrayList<CheckBox> = ArrayList<CheckBox>()
+    private var toSetData = false
+    private lateinit var dataBool: BooleanArray
 
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         var checkBoxView: CheckBox = view.findViewById(R.id.checkBox)
@@ -31,6 +33,12 @@ class SortAdaper(items : List<String>, private val sortObject: sort) : RecyclerV
                 sortObject.onClick(adapterPosition, checkBoxView.isChecked)
             }
             boxes.add(checkBoxView)
+            if(toSetData && boxes.size == 8){
+                for(i in 0..7){
+                    boxes[i].isChecked = dataBool[i]
+                }
+            }
+
             checkBoxView.text = str
             if(pos != 7)checkBoxView.setOnClickListener(adaper)
             else checkBoxView.setOnClickListener(adaper2)
@@ -49,5 +57,17 @@ class SortAdaper(items : List<String>, private val sortObject: sort) : RecyclerV
 
     override fun onBindViewHolder(holder: SortAdaper.ViewHolder, position: Int) {
         holder.onBind(data[position], position)
+    }
+
+    public fun setData(dataBool: BooleanArray){
+        if(boxes.size == 0){
+            toSetData = true
+            this.dataBool = dataBool
+            return
+        }
+
+        for(i in 0..7){
+            boxes[i].isChecked = dataBool[i]
+        }
     }
 }

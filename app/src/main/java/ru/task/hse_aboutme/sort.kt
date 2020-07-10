@@ -4,11 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class sort : AppCompatActivity() {
+
+    companion object{
+        val DATA = "dataArray"
+    }
+    private var bundleData: BooleanArray? = null
+    private lateinit var sortAdapter: SortAdaper
+
     private var data = BooleanArray(8)
     /*
     0 - < 1 month
@@ -33,12 +41,28 @@ class sort : AppCompatActivity() {
         for(i in 0..6){
             data[i] = false;
         }
-        var sortAdapter = SortAdaper(items, this)
+
+        if(savedInstanceState != null)bundleData = savedInstanceState?.getBooleanArray(DATA)!!
+        if(bundleData != null){
+            data = bundleData?:data
+        }
+
+        sortAdapter = SortAdaper(items, this)
         var recyclerView = findViewById<RecyclerView>(R.id.sort_recycler)
 
         recyclerView.adapter = sortAdapter
-
     }
+
+    override fun onStart() {
+        super.onStart()
+        if(bundleData != null) {
+            val dbg = findViewById<TextView>(R.id.dbg)
+
+            dbg.text = "updated"
+            sortAdapter.setData(data)
+        }
+    }
+
     public fun onClick(s: Int, state: Boolean){
         //var checkBox: CheckBox = view
         data[s] = state
@@ -48,5 +72,10 @@ class sort : AppCompatActivity() {
         intent.putExtra("sortStruct", data)
         setResult(Activity.RESULT_OK, intent)
         finish()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBooleanArray(DATA, data)
+        super.onSaveInstanceState(outState)
     }
 }
