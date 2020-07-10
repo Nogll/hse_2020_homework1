@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dbg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sort_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/activity_main"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="10"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:elevation="2dp"
+        android:onClick="onSetClick"
+        android:text="@string/choose" />
+
 </LinearLayout>

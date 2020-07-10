@@ -21,8 +21,10 @@ class MainActivity : AppCompatActivity() {
     2-6 - pos - 1 year
     7 - all
     */
-    var items = java.util.ArrayList<Lang>()
+    private var items = java.util.ArrayList<Lang>()
     private fun gen(){
+        items = java.util.ArrayList<Lang>()
+        var preitems = java.util.ArrayList<Lang>()
         /*
         items = listOf(
             Lang("c++", 4),
@@ -32,17 +34,18 @@ class MainActivity : AppCompatActivity() {
             Lang("kotlin", -1)
         )
         */
-        items.add(Lang("c++", 4))
-        items.add(Lang("python", 4))
-        items.add(Lang("java", 0))
-        items.add(Lang("c#", 1))
-        items.add(Lang("kotlin", -1))
+        preitems.add(Lang("c++", 4))
+        preitems.add(Lang("python", 4))
+        preitems.add(Lang("java", 0))
+        preitems.add(Lang("c#", 1))
+        preitems.add(Lang("kotlin", -1))
 
         for(i in 0..4){
-            if(data[7]) break
+            if(data[preitems[i].time + 1] || data[7]){
 
-            if(!data[items[i].time + 1]) {
-                items.removeAt(i)
+                items.add(preitems[i])
+            } else{
+                continue
             }
         }
     }
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun onClickUrl(view : View){
+        onShow()
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(myGithubUrl))
         startActivity(intent)
     }
@@ -59,26 +63,33 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        for(i in 0..6){
+        for(i in 0..6) {
             data[i] = true;
         }
+        onShow()
+    }
 
+    private fun onShow() {
         gen()
+        setRecycler()
+    }
 
+    private fun setRecycler(){
         val myAdapter = DataAdapter(items)
         val llm = LinearLayoutManager(this)
         val recyclerView: RecyclerView = findViewById<RecyclerView>(R.id.recycler)
 
         recyclerView.layoutManager = llm
         recyclerView.adapter = myAdapter
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 1 && resultCode == Activity.RESULT_OK && data != null){
-            this.data = data.getBooleanArrayExtra("sortStruct")
+            var ret = data.getBooleanArrayExtra("sortStruct")
+            this.data = ret
 
+            onShow()
         }
     }
 }

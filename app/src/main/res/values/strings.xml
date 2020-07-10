@@ -7,4 +7,5 @@
     <string name="project_text">123</string>
     <string name="skills">Skills</string>
     <string name="sort_image" translatable="false">sort image</string>
+    <string name="choose">choose</string>
 </resources>
